@@ -96,5 +96,30 @@ fi
 >input.txt
 # start prog 4
 
+echo "----------------------------"
 
-# end prog 4
+./prog4.sh > output_capture.txt
+if diff output_capture.txt <(echo "score directory missing");then
+  echo "Prog 4 test_case 1/3 passed"
+else
+  echo "Prog 4 test_case 1/3 failed"
+fi
+
+./prog4.sh invalid_dir_name > output_capture.txt
+if diff output_capture.txt <(echo "invalid_dir_name is not a directory");then
+  echo "Prog 4 test_case 2/3 passed"
+else
+  echo "Prog 4 test_case 2/3 failed"
+fi
+
+./prog4.sh data > output_capture.txt
+if diff output_capture.txt <(echo -e "101:C\n102:A\n103:D\n101:A");then
+  echo "Prog 4 test_case 3/3 passed"
+else
+  echo "Prog 4 test_case 3/3 failed"
+fi
+
+# end prog 4 test cases
+
+# start prog 5 test cases
+
