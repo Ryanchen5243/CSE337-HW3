@@ -40,8 +40,61 @@ fi
 echo "----------------------------"
 echo -e "ID,Q1,Q2,Q3,Q4,Q5\n101,8,6,9,4,4\n102,9,9,9,10,4\n103,5,6,2,4,4\n104,1,2,2,1,4\n105,10,10,10,9,4\n106,10,10,10,10,4\n107,7,7,8,9,4\n108,5,6,5,6,5\n109,10,9,9,4,4" > input.txt
 
-./prog3.sh input.txt
+./prog3.sh non_existent_input_file.txt > output_capture.txt
+
+if diff output_capture.txt <(echo -e "missing data file");then
+  echo "Prog 3 test_case 1/7 passed"
+else
+  echo "Prog 3 test_case 1/7 failed"
+fi
+
+./prog3.sh 1 2 3 > output_capture.txt
+if diff output_capture.txt <(echo -e "missing data file");then
+  echo "Prog 3 test_case 2/7 passed"
+else
+  echo "Prog 3 test_case 2/7 failed"
+fi
+
+./prog3.sh > output_capture.txt
+if diff output_capture.txt <(echo -e "missing data file");then
+  echo "Prog 3 test_case 3/7 passed"
+else
+  echo "Prog 3 test_case 3/7 failed"
+fi
+
+./prog3.sh input.txt 1 2 3 4 5 > output_capture.txt
+if diff output_capture.txt <(echo -e "5");then
+  echo "Prog 3 test_case 4/7 passed"
+else
+  echo "Prog 3 test_case 4/7 failed"
+fi
+
+./prog3.sh input.txt > output_capture.txt
+if diff output_capture.txt <(echo -e "6");then
+  echo "Prog 3 test_case 5/7 passed"
+else
+  echo "Prog 3 test_case 5/7 failed"
+fi
+
+./prog3.sh input.txt 1 2 3 > output_capture.txt
+if diff output_capture.txt <(echo -e "6");then
+  echo "Prog 3 test_case 6/7 passed"
+else
+  echo "Prog 3 test_case 6/7 failed"
+fi
 
 
+./prog3.sh input.txt 1 2 3 4 5 9 10 > output_capture.txt
+
+if diff output_capture.txt <(echo -e "5");then
+  echo "Prog 3 test_case 7/7 passed"
+else
+  echo "Prog 3 test_case 7/7 failed"
+fi
+
+# end prog 3
+>input.txt
+# start prog 4
 
 
+# end prog 4
