@@ -63,7 +63,7 @@ fi
 prog1_setup
 
 # end prog 1 test cases
-
+echo "-------------------------------"
 
 # prog 2 test cases
 echo -e "1;2;3;4;5\n11:4:23:12\n18,4,17,13,21,19,25" > input.txt
@@ -184,6 +184,52 @@ else
 fi
 
 # end prog 4 test cases
+echo "--------------------------------------"
 
 # start prog 5 test cases
+grep -o '\b[a-zA-Z]\{4\}\b' prob5-sample.txt | grep -v 'forc' > dictionary_file.txt
 
+./prog5.sh > output_capture.txt
+if diff output_capture.txt <(echo -e "input file and dictionary missing"); then
+  echo "Prog 5 test_case 1/6 passed"
+else
+  echo "Prog 5 test_case 1/6 failed"
+fi
+
+./prog5.sh prob5-sample.txt > output_capture.txt
+if diff output_capture.txt <(echo -e "input file and dictionary missing"); then
+  echo "Prog 5 test_case 2/6 passed"
+else
+  echo "Prog 5 test_case 2/6 failed"
+fi
+
+./prog5.sh dictionary_file.txt > output_capture.txt
+if diff output_capture.txt <(echo -e "input file and dictionary missing"); then
+  echo "Prog 5 test_case 3/6 passed"
+else
+  echo "Prog 5 test_case 3/6 failed"
+fi
+
+./prog5.sh invalid_file.txt dictionary_file.txt > output_capture.txt
+if diff output_capture.txt <(echo -e "invalid_file.txt is not a file"); then
+  echo "Prog 5 test_case 4/6 passed"
+else
+  echo "Prog 5 test_case 4/6 failed"
+fi
+
+./prog5.sh prob5-sample.txt bad_dictionary.txt > output_capture.txt
+if diff output_capture.txt <(echo -e "bad_dictionary.txt is not a file"); then
+  echo "Prog 5 test_case 5/6 passed"
+else
+  echo "Prog 5 test_case 5/6 failed"
+fi
+
+
+./prog5.sh prob5-sample.txt dictionary_file.txt > output_capture.txt
+if diff output_capture.txt <(echo -e "forc"); then
+  echo "Prog 5 test_case 6/6 passed"
+else
+  echo "Prog 5 test_case 6/6 failed"
+fi
+
+# end prog 5 test cases
