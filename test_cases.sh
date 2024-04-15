@@ -1,7 +1,71 @@
 #!/bin/bash
 
-# prog 2 test cases
 touch input.txt
+
+# Prog 1 test cases
+
+init_prog1_dir(){
+  mkdir -p project project/subProj1 project/subProj1/subsubProj1 project/subProj2
+  touch project/file1.c project/file1.o project/file2.c project/file2.o \
+  project/subProj1/file3.c project/subProj1/file3.o project/subProj1/file4.c project/subProj1/file4.o \
+  project/subProj1/file5.c project/subProj1/file5.o project/subProj1/file6.c project/subProj1/file6.o \
+  project/subProj1/subsubProj1/file7.c project/subProj1/subsubProj1/file7.o \
+  project/subProj2/file8.c project/subProj2/file8.o project/subProj2/file9.c project/subProj2/file9.o \
+  project/subProj2/file10.c project/subProj2/file10.o project/subProj2/file11.c project/subProj2/file11.o
+}
+
+prog1_setup(){
+  if [[ ! -d "project" ]]; then
+    init_prog1_dir
+  else
+    # reset directory
+    rm -rf "project"
+    init_prog1_dir
+  fi
+  # reset destination folder
+  if [[ -d "project_src_bkup" ]]; then
+    rm -rf "project_src_bkup"
+  fi
+}
+
+prog1_setup
+./prog1.sh > output_capture.txt
+if diff output_capture.txt <(echo -e "src and dest dirs missing");then
+  echo "Prog 1 test_case 1/4 passed"
+else
+  echo "Prog 1 test_case 1/4 failed"
+fi
+
+prog1_setup
+./prog1.sh project > output_capture.txt
+if diff output_capture.txt <(echo -e "src and dest dirs missing");then
+  echo "Prog 1 test_case 2/4 passed"
+else
+  echo "Prog 1 test_case 2/4 failed"
+fi
+
+prog1_setup
+./prog1.sh project_src_bkup > output_capture.txt
+if diff output_capture.txt <(echo -e "src and dest dirs missing");then
+  echo "Prog 1 test_case 3/4 passed"
+else
+  echo "Prog 1 test_case 3/4 failed"
+fi
+
+prog1_setup
+./prog1.sh non_existent_source_dir project_src_bkup > output_capture.txt
+if [ $? -eq 0 ] && diff output_capture.txt <(echo -e "non_existent_source_dir not found");then
+  echo "Prog 1 test_case 4/4 passed"
+else
+  echo "Prog 1 test_case 4/4 failed"
+fi
+
+prog1_setup
+
+# end prog 1 test cases
+
+
+# prog 2 test cases
 echo -e "1;2;3;4;5\n11:4:23:12\n18,4,17,13,21,19,25" > input.txt
 
 ./prog2.sh input.txt output.txt
@@ -113,7 +177,7 @@ else
 fi
 
 ./prog4.sh data > output_capture.txt
-if diff output_capture.txt <(echo -e "101:C\n102:A\n103:D\n101:A");then
+if diff output_capture.txt <(echo -e "101:C\n102:A\n103:D\n101:A"); then
   echo "Prog 4 test_case 3/3 passed"
 else
   echo "Prog 4 test_case 3/3 failed"
