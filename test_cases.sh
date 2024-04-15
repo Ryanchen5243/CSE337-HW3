@@ -162,6 +162,15 @@ fi
 
 echo "----------------------------"
 
+# setup data directory
+mkdir -p data
+touch data/prob4-score1.txt data/prob4-score2.txt data/prob4-score3.txt \
+  data/prob4-score4.txt
+echo -e "ID,Q1,Q2,Q3,Q4,Q5\n101,8,6,9,4,10" > data/prob4-score1.txt
+echo -e "ID,Q1,Q2,Q3,Q4,Q5\n102,9,9,9,10,10" > data/prob4-score2.txt
+echo -e "ID,Q1,Q2,Q3,Q4,Q5\n103,5,6,2,4,6" > data/prob4-score3.txt
+echo -e "ID,Q1,Q2,Q3,Q4,Q5\n101,10,10,10,10,10" > data/prob4-score4.txt
+
 ./prog4.sh > output_capture.txt
 if diff output_capture.txt <(echo "score directory missing");then
   echo "Prog 4 test_case 1/3 passed"
@@ -185,7 +194,19 @@ fi
 
 # end prog 4 test cases
 echo "--------------------------------------"
-
+touch prob5-sample.txt
+echo -e "
+Python is an easy to learn, powerful programming language. It has efficient high
+level data structures and a simple but effective approach to object-oriented
+programming. Python's elegant syntax and dynamic typing, together with its
+interpreted nature, make it an ideal language for scripting and rapid application
+development in many areas on most platforms.
+The Python interpreter and the extensive standard library are freely available in
+source or binary forc for all major platforms from the Python Web site,
+https://www.python.org/, and may be freely distributed. The same site also
+contains distributions of and pointers to many free third party Python modules,
+programs and tools, and additional documentation.
+" > prob5-sample.txt
 # start prog 5 test cases
 grep -o '\b[a-zA-Z]\{4\}\b' prob5-sample.txt | grep -v 'forc' > dictionary_file.txt
 
